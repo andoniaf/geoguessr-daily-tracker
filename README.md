@@ -13,6 +13,7 @@ A simple Python script to track your GeoGuessr daily challenge scores and save t
 
 - Python 3.10+
 - GeoGuessr account cookie
+- (Optional) Google Service Account credentials for Google Sheets integration
 
 ## Installation
 
@@ -24,9 +25,14 @@ pip install -r requirements.txt
 
 ## Usage
 
-1. Set your GeoGuessr cookie as an environment variable:
+1. Set required environment variables:
 ```bash
 export NCFA_COOKIE="your_cookie_value_here"
+
+# Optional: For Google Sheets integration
+export USE_GSHEETS="true"
+export GSHEET_ID="your_spreadsheet_id"
+export GSHEET_CREDENTIALS="path/to/service-account.json"
 ```
 
 2. Run the script:
@@ -34,7 +40,17 @@ export NCFA_COOKIE="your_cookie_value_here"
 python daily_challenge_tracker.py
 ```
 
+### Google Sheets Setup
+
+1. Create a Google Cloud Project
+2. Enable Google Sheets API
+3. Create a Service Account with no roles
+4. Download the service account key
+5. Share your Google Sheet with the service account email (with Editor permissions)
+6. Copy the Spreadsheet ID from the URL
+
 The script will create a CSV file named `daily_challenges.csv` in the current directory with your game results.
+If Google Sheets integration is enabled, it will also append the data to your spreadsheet.
 
 ## CSV Format
 

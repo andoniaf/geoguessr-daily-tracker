@@ -99,7 +99,7 @@ class Player(BaseModel):
     guesses: List[PlayerGuess]
     isLeader: bool
     currentPosition: int
-    pin: Dict[str, str]
+    pin: Dict[str, Any]
     newBadges: List
     explorer: Optional[Dict[str, Any]]
     id: str

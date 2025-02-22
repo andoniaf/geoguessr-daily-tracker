@@ -3,6 +3,7 @@ import csv
 from datetime import datetime
 import requests
 from models import DailyChallengeResponse, GameResponse, DailyChallengeGame, Round
+from sheets_writer import GoogleSheetsWriter
 
 class GeoGuessrAPI:
     BASE_URL = "https://www.geoguessr.com/api/v3"
@@ -47,7 +48,7 @@ class GeoGuessrAPI:
             totalScore=int(game_data.player.totalScore.amount),
             totalDistance=game_data.player.totalDistanceInMeters,
             rounds=rounds,
-            date=datetime.now()
+            date=datetime.now().date()
         )
 
 def save_to_csv(game: DailyChallengeGame, filename: str = "daily_challenges.csv"):
@@ -97,6 +98,11 @@ def main():
         token = api.get_daily_challenge()
         game = api.get_game_details(token)
         save_to_csv(game)
+        
+        if os.getenv('USE_GSHEETS', '').lower() == 'true':
+            sheets_writer = GoogleSheetsWriter()
+            sheets_writer.save_game(game)
+        
         print(f"Successfully saved daily challenge results for {game.date}")
         
     except Exception as e:
