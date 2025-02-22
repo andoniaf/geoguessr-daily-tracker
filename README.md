@@ -62,3 +62,6 @@ The CSV file contains the following columns:
 - round[1-5]_distance: Distance in meters for each round
 - link: Direct link to the game results
 
+# TODO
+- [ ] Add more formatting to the sheet
+- [ ] Add a feature to reingest past results
