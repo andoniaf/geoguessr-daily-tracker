@@ -54,12 +54,69 @@ class GoogleSheetsWriter:
         
         requests = []
         
-        # Header styling
+        # Clear all existing formatting first
         requests.append({
             "updateCells": {
-                "rows": [{
-                    "values": [{
-                        "userEnteredValue": {"stringValue": header},
+                "range": {
+                    "sheetId": 0,
+                    "startRowIndex": 0,
+                    "startColumnIndex": 0,
+                    "endColumnIndex": len(headers)
+                },
+                "fields": "userEnteredFormat"
+            }
+        })
+
+        # Get current values in first row
+        result = self._get_sheet_values('A1:N1')
+        first_row = result.get('values', [[]])[0] if 'values' in result else []
+        
+        # Only update headers if they're missing or different
+        if not first_row or first_row != headers:
+            requests.append({
+                "updateCells": {
+                    "rows": [{
+                        "values": [{
+                            "userEnteredValue": {"stringValue": header},
+                            "userEnteredFormat": {
+                                "backgroundColor": {
+                                    "red": 0.1,
+                                    "green": 0.27,
+                                    "blue": 0.13
+                                },
+                                "textFormat": {
+                                    "bold": True,
+                                    "foregroundColor": {
+                                        "red": 1.0,
+                                        "green": 1.0,
+                                        "blue": 1.0
+                                    }
+                                }
+                            }
+                        } for header in headers]
+                    }],
+                    "fields": "userEnteredValue,userEnteredFormat",
+                    "range": {
+                        "sheetId": 0,
+                        "startRowIndex": 0,
+                        "endRowIndex": 1,
+                        "startColumnIndex": 0,
+                        "endColumnIndex": len(headers)
+                    }
+                }
+            })
+        else:
+            # If headers exist but need formatting
+            requests.append({
+                "repeatCell": {
+                    "range": {
+                        "sheetId": 0,
+                        "startRowIndex": 0,
+                        "endRowIndex": 1,
+                        "startColumnIndex": 0,
+                        "endColumnIndex": len(headers)
+                    },
+                    "cell": {
                         "userEnteredFormat": {
                             "backgroundColor": {
                                 "red": 0.1,
@@ -75,18 +132,10 @@ class GoogleSheetsWriter:
                                 }
                             }
                         }
-                    } for header in headers]
-                }],
-                "fields": "userEnteredValue,userEnteredFormat",
-                "range": {
-                    "sheetId": 0,
-                    "startRowIndex": 0,
-                    "endRowIndex": 1,
-                    "startColumnIndex": 0,
-                    "endColumnIndex": len(headers)
+                    },
+                    "fields": "userEnteredFormat"
                 }
-            }
-        })
+            })
 
         # Alternating column colors
         for i in range(0, len(headers), 2):
@@ -177,37 +226,6 @@ class GoogleSheetsWriter:
                 }
             })
 
-        # Distance formatting
-        distance_columns = [
-            (3, 4),   # Round 1 Distance
-            (5, 6),   # Round 2 Distance
-            (7, 8),   # Round 3 Distance
-            (9, 10),  # Round 4 Distance
-            (11, 12), # Round 5 Distance
-            (12, 13)  # Total Distance
-        ]
-
-        for start_col, end_col in distance_columns:
-            requests.append({
-                "repeatCell": {
-                    "range": {
-                        "sheetId": 0,
-                        "startRowIndex": 1,
-                        "startColumnIndex": start_col,
-                        "endColumnIndex": end_col
-                    },
-                    "cell": {
-                        "userEnteredFormat": {
-                            "numberFormat": {
-                                "type": "NUMBER",
-                                "pattern": '[>=1000]#,##0.0" km";0" m"'
-                            }
-                        }
-                    },
-                    "fields": "userEnteredFormat.numberFormat"
-                }
-            })
-
         # Score conditional formatting (gold/silver)
         requests.extend([
             {
@@ -272,6 +290,9 @@ class GoogleSheetsWriter:
         ).execute()
 
     def save_game(self, game: DailyChallengeGame):
+        # Apply formatting first
+        self.format_sheet()
+
         """Save game results to the spreadsheet"""
         row_data = [
             game.date.strftime("%Y-%m-%d"),
@@ -301,8 +322,5 @@ class GoogleSheetsWriter:
                 'values': [row_data]
             }
         ).execute()
-        
-        # Apply formatting after saving
-        self.format_sheet()
         
         print(f"Added new entry for {game.date.strftime('%Y-%m-%d')} to the spreadsheet") 
