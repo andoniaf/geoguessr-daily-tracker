@@ -167,12 +167,53 @@ class GoogleSheetsWriter:
                     "sheetId": 0,
                     "dimension": "COLUMNS",
                     "startIndex": 0,
-                    "endIndex": len(headers)
+                    "endIndex": len(headers) - 1  # All columns except Link
                 },
                 "properties": {
                     "pixelSize": 100
                 },
                 "fields": "pixelSize"
+            }
+        })
+
+        # Set Link column width
+        requests.append({
+            "updateDimensionProperties": {
+                "range": {
+                    "sheetId": 0,
+                    "dimension": "COLUMNS",
+                    "startIndex": len(headers) - 1,  # Last column (Link)
+                    "endIndex": len(headers)
+                },
+                "properties": {
+                    "pixelSize": 350  # Wider column for links
+                },
+                "fields": "pixelSize"
+            }
+        })
+
+        # Format links as clickable hyperlinks
+        requests.append({
+            "repeatCell": {
+                "range": {
+                    "sheetId": 0,
+                    "startRowIndex": 1,  # Skip header
+                    "startColumnIndex": len(headers) - 1,  # Link column
+                    "endColumnIndex": len(headers)
+                },
+                "cell": {
+                    "userEnteredFormat": {
+                        "textFormat": {
+                            "foregroundColor": {
+                                "red": 0.0,
+                                "green": 0.0,
+                                "blue": 0.8
+                            },
+                            "underline": True
+                        }
+                    }
+                },
+                "fields": "userEnteredFormat.textFormat"
             }
         })
 
@@ -302,10 +343,11 @@ class GoogleSheetsWriter:
         for round in game.rounds:
             row_data.extend([round.score, round.distance])
             
-        # Add total distance just before the link
+        # Add total distance and link with hyperlink formula
+        link_url = f"https://www.geoguessr.com/results/{game.token}"
         row_data.extend([
             game.totalDistance,
-            f"https://www.geoguessr.com/results/{game.token}"
+            link_url
         ])
         
         existing_dates = self._get_existing_dates()
