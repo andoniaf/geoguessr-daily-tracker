@@ -63,5 +63,6 @@ The CSV file contains the following columns:
 - link: Direct link to the game results
 
 # TODO
-- [ ] Add more formatting to the sheet
-- [ ] Add a feature to reingest past results
+- [x] Add more formatting to the sheet
+- [x] Add a feature to reingest past results
+- [ ] Add simple graph with results
