@@ -40,19 +40,10 @@ export GSHEET_CREDENTIALS="path/to/service-account.json"
 python daily_challenge_tracker.py
 ```
 
-### Google Sheets Setup
-
-1. Create a Google Cloud Project
-2. Enable Google Sheets API
-3. Create a Service Account with no roles
-4. Download the service account key
-5. Share your Google Sheet with the service account email (with Editor permissions)
-6. Copy the Spreadsheet ID from the URL
-
 The script will create a CSV file named `daily_challenges.csv` in the current directory with your game results.
 If Google Sheets integration is enabled, it will also append the data to your spreadsheet.
 
-## CSV Format
+### CSV Format
 
 The CSV file contains the following columns:
 - date: The date of the challenge
@@ -62,7 +53,20 @@ The CSV file contains the following columns:
 - round[1-5]_distance: Distance in meters for each round
 - link: Direct link to the game results
 
+### Google Sheets Setup (optional)
+
+![](img/sheet.png)
+
+1. Create a Google Cloud Project
+2. Enable Google Sheets API
+3. Create a Service Account with no roles
+4. Download the service account key
+5. Share your Google Sheet with the service account email (with Editor permissions)
+6. Copy the Spreadsheet ID from the URL
+
+
+
 # TODO
 - [x] Add more formatting to the sheet
 - [x] Add a feature to reingest past results
-- [ ] Add simple graph with results
+- [ ] Add simple graph with results stats
