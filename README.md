@@ -70,3 +70,5 @@ The CSV file contains the following columns:
 - [x] Add more formatting to the sheet
 - [x] Add a feature to reingest past results
 - [ ] Add simple graph with results stats
+- [ ] Automate getting previous_daily_links
+- [ ] Add tests 😅
