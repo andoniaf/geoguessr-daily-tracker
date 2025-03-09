@@ -1,3 +1,7 @@
+<p align="center">
+  <img align="center" src="./img/geoguessr-daily-tracker.png" width="7%" height="7%">
+</p>
+
 # GeoGuessr Daily Challenge Tracker
 
 A Python package to track your GeoGuessr daily challenge scores and save them to CSV and Google Sheets.
