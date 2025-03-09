@@ -7,7 +7,7 @@ setup(
     name="geoguessr-daily-tracker",
     version="0.1.0",
     author="Andoni Alonso",
-    author_email="your.email@example.com",
+    author_email="geoguessr-daily-trac.handbag544@passmail.net",
     description="Track your GeoGuessr daily challenge scores",
     long_description=long_description,
     long_description_content_type="text/markdown",
