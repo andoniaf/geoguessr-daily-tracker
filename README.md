@@ -86,21 +86,21 @@ save_to_csv(game)
 
 The CSV file contains the following columns:
 
-    date: The date of the challenge
-    total_score: Your total score for the game
-    total_distance: Total distance in meters
-    round[1-5]_score: Score for each round
-    round[1-5]_distance: Distance in meters for each round
-    link: Direct link to the game results
+- date: The date of the challenge
+- total_score: Your total score for the game
+- total_distance: Total distance in meters
+- round[1-5]_score: Score for each round
+- round[1-5]_distance: Distance in meters for each round
+- link: Direct link to the game results
 
 Google Sheets Setup (optional)
 
-    Create a Google Cloud Project
-    Enable Google Sheets API
-    Create a Service Account with no roles
-    Download the service account key
-    Share your Google Sheet with the service account email (with Editor permissions)
-    Copy the Spreadsheet ID from the URL
+- Create a Google Cloud Project
+- Enable Google Sheets API
+- Create a Service Account with no roles
+- Download the service account key
+- Share your Google Sheet with the service account email (with Editor permissions)
+- Copy the Spreadsheet ID from the URL
 
 ## Development
 ### Running Tests
