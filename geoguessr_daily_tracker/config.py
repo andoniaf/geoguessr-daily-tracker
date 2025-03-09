@@ -5,7 +5,7 @@ import os
 from pathlib import Path
 from typing import Any, Dict
 
-CONFIG_FILE = Path.home() / ".geoguessr_tracker.json"
+CONFIG_FILE = Path.home() / ".geoguessr_daily_tracker.json"
 
 
 def get_config() -> Dict[str, Any]:
@@ -60,6 +60,6 @@ def get_data_dir() -> Path:
         return repo_data_dir
 
     # Otherwise use user data directory
-    user_data_dir = Path.home() / ".geoguessr_tracker"
+    user_data_dir = Path.home() / ".geoguessr_daily_tracker"
     user_data_dir.mkdir(exist_ok=True)
     return user_data_dir

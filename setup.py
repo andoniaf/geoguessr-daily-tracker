@@ -4,7 +4,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(
-    name="geoguessr-tracker",
+    name="geoguessr-daily-tracker",
     version="0.1.0",
     author="Andoni Alonso",
     author_email="your.email@example.com",
@@ -28,11 +28,11 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "geoguessr-tracker=geoguessr_tracker.cli:main",
+            "geoguessr-daily-tracker=geoguessr_daily_tracker.cli:main",
         ],
     },
     include_package_data=True,
     package_data={
-        "geoguessr_tracker": ["data/*.csv"],
+        "geoguessr_daily_tracker": ["data/*.csv"],
     },
 )

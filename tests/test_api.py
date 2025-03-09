@@ -4,7 +4,7 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from geoguessr_tracker.api import GeoGuessrAPI
+from geoguessr_daily_tracker.api import GeoGuessrAPI
 
 
 @pytest.fixture

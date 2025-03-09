@@ -4,7 +4,7 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from geoguessr_tracker.sheets import GoogleSheetsWriter
+from geoguessr_daily_tracker.sheets import GoogleSheetsWriter
 
 
 @pytest.fixture

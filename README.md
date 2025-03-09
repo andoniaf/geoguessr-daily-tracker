@@ -22,7 +22,7 @@ A Python package to track your GeoGuessr daily challenge scores and save them to
 ### From PyPI
 
 ```bash
-pip install geoguessr-tracker
+pip install geoguessr-daily-tracker
 ```
 
 ### From Source
@@ -38,10 +38,10 @@ You can configure the tracker using environment variables or the configuration c
 
 ```bash
 # Interactive configuration
-python -m geoguessr_tracker.cli configure
+python -m geoguessr_daily_tracker.cli configure
 
 # Show current configuration
-python -m geoguessr_tracker.cli configure --show
+python -m geoguessr_daily_tracker.cli configure --show
 ```
 
 ### Environment Variables
@@ -58,16 +58,16 @@ export GSHEET_CREDENTIALS="path/to/service-account.json"
 ### Command Line
 ```python
 # Track today's daily challenge
-python -m geoguessr_tracker.cli track
+python -m geoguessr_daily_tracker.cli track
 
 # Fill previous dates from CSV file
-python -m geoguessr_tracker.cli fill
+python -m geoguessr_daily_tracker.cli fill
 ```
 
 ### Python API
 ```python
-from geoguessr_tracker.api import GeoGuessrAPI
-from geoguessr_tracker.utils import save_to_csv
+from geoguessr_daily_tracker.api import GeoGuessrAPI
+from geoguessr_daily_tracker.utils import save_to_csv
 
 # Initialize API client
 api = GeoGuessrAPI(cookie="your_cookie_value")

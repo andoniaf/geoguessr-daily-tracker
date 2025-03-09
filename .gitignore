@@ -169,5 +169,5 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
-geoguessr-tracker.json
+geoguessr-daily-tracker.json
 daily_challenges.csv
