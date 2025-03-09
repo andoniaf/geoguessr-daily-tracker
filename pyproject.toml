@@ -1,0 +1,15 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = ["setuptools>=42", "wheel"]
+
+[tool.black]
+line-length = 88
+target-version = ['py310']
+
+[tool.isort]
+line_length = 88
+profile = "black"
+
+[tool.pytest.ini_options]
+python_files = "test_*.py"
+testpaths = ["tests"]

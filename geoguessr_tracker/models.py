@@ -1,21 +1,26 @@
+"""Data models for GeoGuessr API responses and game data."""
+
+from datetime import date, datetime
+from typing import Any, Dict, List, Optional
+
 from pydantic import BaseModel
-from typing import List, Optional, Dict, Any
-from datetime import datetime, date
+
 
 # Daily Challenge Models
 class AuthorCreator(BaseModel):
     id: str
     name: str
     avatarImage: str
-    customName: Optional[str]
-    customAvatarImage: Optional[str]
+    customName: Optional[str] = None
+    customAvatarImage: Optional[str] = None
     signupAssetIds: List[str]
     signupCoins: int
     youtubeLink: str
     twitchLink: str
     twitterLink: str
     instagramLink: str
-    program: Optional[str]
+    program: Optional[str] = None
+
 
 class LeaderboardEntry(BaseModel):
     id: str
@@ -31,10 +36,11 @@ class LeaderboardEntry(BaseModel):
     currentStreak: int
     totalStepsCount: int
 
+
 class DailyChallengeResponse(BaseModel):
     authorCreator: AuthorCreator
     date: datetime
-    description: Optional[str]
+    description: Optional[str] = None
     participants: int
     token: str
     pickedWinner: bool
@@ -42,11 +48,13 @@ class DailyChallengeResponse(BaseModel):
     friends: List[LeaderboardEntry]
     country: List[LeaderboardEntry]
 
+
 # Game Models
 class Round(BaseModel):
     score: int
     distance: float
     roundNumber: int
+
 
 class DailyChallengeGame(BaseModel):
     token: str
@@ -55,6 +63,7 @@ class DailyChallengeGame(BaseModel):
     rounds: List[Round]
     date: date
 
+
 class GameRound(BaseModel):
     lat: float
     lng: float
@@ -62,17 +71,20 @@ class GameRound(BaseModel):
     heading: float
     pitch: float
     zoom: float
-    streakLocationCode: Optional[str]
+    streakLocationCode: Optional[str] = None
     startTime: datetime
+
 
 class ScoreUnit(BaseModel):
     amount: str
     unit: str
-    percentage: Optional[float]
+    percentage: Optional[float] = None
+
 
 class Distance(BaseModel):
     meters: Dict[str, str]
     miles: Dict[str, str]
+
 
 class PlayerGuess(BaseModel):
     lat: float
@@ -86,8 +98,9 @@ class PlayerGuess(BaseModel):
     distance: Distance
     distanceInMeters: float
     stepsCount: int
-    streakLocationCode: Optional[str]
+    streakLocationCode: Optional[str] = None
     time: int
+
 
 class Player(BaseModel):
     totalScore: ScoreUnit
@@ -100,13 +113,14 @@ class Player(BaseModel):
     isLeader: bool
     currentPosition: int
     pin: Dict[str, Any]
-    newBadges: List
-    explorer: Optional[Dict[str, Any]]
+    newBadges: List[Any] = []
+    explorer: Optional[Dict[str, Any]] = None
     id: str
     nick: str
     isVerified: bool
     flair: int
     countryCode: str
+
 
 class GameResponse(BaseModel):
     token: str
@@ -125,4 +139,4 @@ class GameResponse(BaseModel):
     bounds: Dict[str, Dict[str, float]]
     round: int
     rounds: List[GameRound]
-    player: Player 
+    player: Player
